@@ -13,7 +13,6 @@ export const getAllBooking = async (req, res) => {
 
 export const doBooking = async (req, res) => {
   try {
-    //    console.log(req.body);
     const reservation = new Booking(req.body);
 
     await reservation.save();
@@ -45,7 +44,7 @@ export const updateBooking = async (req, res) => {
     const updatedReservation = await Booking.findByIdAndUpdate(
       reservationId,
       req.body,
-      { new: true } // Return the updated document
+      { new: true }
     );
 
     if (!updatedReservation) {
@@ -74,7 +73,6 @@ export const confirmingEmail = async (req, res) => {
   console.log(userEmail);
 
   try {
-    // Configure the email transport using your email service provider's settings
     const transporter = nodemailer.createTransport({
       service: "gmail",
       port: 465,
@@ -84,19 +82,18 @@ export const confirmingEmail = async (req, res) => {
       secureConnection: false,
 
       auth: {
-        user: "kashyapsaurabh0908@gmail.com", // Your Gmail email address
-        pass: "doruglhgmamfmvfg", // Your Gmail password or an app-specific password
+        user: "kashyapsaurabh0908@gmail.com",
+        pass: "doruglhgmamfmvfg",
       },
       tls: {
         rejectionUnAuthorized: true,
       },
     });
 
-    // Define email data
     const mailOptions = {
-      from: "opulenzaverve@gmail.com", // Sender's email address
-      to: `${userEmail}`, // Recipient's email address
-      subject: "Reservation Confirmation", // Email subject
+      from: "opulenzaverve@gmail.com",
+      to: `${userEmail}`,
+      subject: "Reservation Confirmation",
       text: `Dear ${userName},\n\nWe are thrilled to confirm your table reservation at Opulenza Verve for ${userDate} at ${
         userTime + userPeriod
       }. We are waiting to welcome you for a delightful dining experience.\n\nReservation Details:\n- Date: ${userDate}\n- Time: ${
